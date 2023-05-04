@@ -1,6 +1,6 @@
 # Plugin Last Updated Redux
 
-Plugin Last Updated Redux displays the date a plugin was last updated in the WordPress Plugin Directory.
+Displays a "Last Updated" date for all of your plugins installed by way of the WordPress Plugin Directory.
 
 On plugins that have not been updated in over two years, a warning emoji is displayed next to the last updated date.
 
@@ -14,15 +14,17 @@ On plugins that have not been updated in over two years, a warning emoji is disp
 
 ### How does the plugin determine if a plugin hasn't been updated in over two years?
 
-The plugin checks a public API to see if the last updated date for a plugin installed on your site is older than two years. If it is, a warning emoji is displayed next to the "Last Updated" date.
+The plugin checks a public API — and caches the results in a transient for 24 hours — to see if the last updated date for a plugin installed on your site is older than two years. If it is, a warning emoji (⚠️) is displayed next to the "Last Updated" date.
 
 ### Can I customize the warning emoji or the text that's displayed?
 
-No, the plugin does not currently support customization of the warning emoji or the text that's displayed.
+Nope! The plugin does not currently support customization of the warning emoji or the text that's displayed.
 
-### Does the plugin work with plugins that are not in the WordPress Plugin Directory?
+Decisions, not options!
 
-No, the plugin only works with plugins that are available in the WordPress Plugin Directory.
+### Does the plugin work with any plugins that are not in the WordPress Plugin Directory?
+
+Sadly, no. PLU Redux only works with plugins that are available in the WordPress Plugin Directory.
 
 ## Changelog
 
