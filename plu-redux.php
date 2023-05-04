@@ -68,7 +68,7 @@ function plu_redux_plugin_meta( $plugin_meta, $plugin_file ) {
 // This function retrieves the last updated date for a plugin from the WordPress API
 function plu_redux_get_last_updated( $slug ) {
 	$request = wp_remote_post(
-		'http://api.wordpress.org/plugins/info/1.0/', // WordPress API endpoint for plugin information
+		'https://api.wordpress.org/plugins/info/1.0/', // WordPress API endpoint for plugin information
 		array(
 			'body' => array(
 				'action' => 'plugin_information',
