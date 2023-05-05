@@ -10,6 +10,30 @@ On plugins that have not been updated in over two years, a warning emoji is disp
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. That's it! The plugin will automatically display the last updated date for installed plugins available in the WordPress Plugin Directory.
 
+Sure, here's an example section that you can add to the `README.md` file to document the new WP-CLI command:
+
+## WP-CLI Command
+
+PLU Redux includes a WP-CLI command that displays the "Last Updated" date of installed plugins. Here's how you use it:
+
+```
+wp plu list
+```
+
+This command will output a list of installed (WordPress Plugin Directory listed) plugins alongside their "Last Updated" date:
+
+```
++-----------------------------------+---------------------------+
+| Plugin Name                       | Last Updated              |
++-----------------------------------+---------------------------+
+| Akismet Anti-Spam Spam Protection | 2023-04-05 10:17am GMT    |
+| Lazy Load                         | 2018-11-22 04:43am GMT  ← |
+| Proxy Cache Purge                 | 2022-06-09 10:57pm GMT    |
++-----------------------------------+---------------------------+
+```
+
+Plugins that have not been updated in over two years will be highlighted with an arrow (←) to the right of the "Last Updated" date.
+
 ## Frequently Asked Questions
 
 ### How does the plugin determine if a plugin hasn't been updated in over two years?
@@ -27,6 +51,9 @@ Decisions, not options!
 Sadly, no. PLU Redux only works with plugins that are available in the WordPress Plugin Directory.
 
 ## Changelog
+
+### 2.1.0
+* Added a WP-CLI command.
 
 ### 2.0.0
 * Brought code up to date.

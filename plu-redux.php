@@ -93,3 +93,42 @@ function plu_redux_get_last_updated( $slug ) {
 
 	return false;
 }
+
+/**
+ * WP-CLI command to display last updated dates of installed plugins.
+ */
+function plu_redux_last_updated_command() {
+	$plugins = get_plugins();
+
+	$table = new \cli\Table();
+	$table->setHeaders(array('Plugin Name', 'Last Updated'));
+
+	foreach ($plugins as $plugin_file => $plugin_info) {
+			// Extract the plugin's slug from the plugin filename
+			list($slug) = explode('/', $plugin_file);
+
+			// Generate a unique hash of the plugin's slug
+			$slug_hash = md5($slug);
+
+			// Get the last updated date from the cache
+			$last_updated = get_transient("plu_redux_{$slug_hash}");
+
+			// If the cache does not have the date, retrieve it from the WordPress API and cache it
+			if (false === $last_updated) {
+					$last_updated = plu_redux_get_last_updated($slug);
+					set_transient("plu_redux_{$slug_hash}", $last_updated, 86400); // cache for one day
+			}
+
+			if ($last_updated) {
+					// Check if last update was more than 2 years ago
+					$two_years_ago = strtotime('-2 years'); // get a Unix timestamp for 2 years ago
+					$last_updated_timestamp = strtotime($last_updated); // get a Unix timestamp for the last updated date
+					$is_old = $last_updated_timestamp < $two_years_ago; // check if the last updated date is older than 2 years
+					$warning = $is_old ? '  ←' : ''; // if the last updated date is older than 2 years, add a warning symbol
+					$table->addRow(array($plugin_info['Name'], $last_updated . $warning));
+			}
+	}
+
+	$table->display();
+}
+\WP_CLI::add_command('plu list', 'plu_redux_last_updated_command');
