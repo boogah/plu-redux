@@ -16,7 +16,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: Plugin Last Updated Redux
- * Version:           2.1.0
+ * Version:           2.1.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Jason Cosper
