@@ -24,6 +24,7 @@
  * License:           GPL-2.0+
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Description:       Display the last updated date for plugins in the <a href="http://wordpress.org/plugins/">WordPress Plugin Directory</a>.
+ * GitHub Plugin URI: boogah/plu-redux
  */
  
 // If this file is called directly, abort.
@@ -131,4 +132,6 @@ function plu_redux_last_updated_command() {
 
 	$table->display();
 }
-\WP_CLI::add_command('plu list', 'plu_redux_last_updated_command');
+if ( class_exists( 'WP_CLI' ) ) {
+    \WP_CLI::add_command('plu list', 'plu_redux_last_updated_command');
+}
