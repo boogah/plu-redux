@@ -52,6 +52,10 @@ Sadly, no. PLU Redux only works with plugins that are available in the WordPress
 
 ## Changelog
 
+### 2.1.1
+* Fixed bug that would prevent plugin from being installable when WP-CLI is not available.
+* Added Git Updater header.
+
 ### 2.1.0
 * Added a WP-CLI command.
 
