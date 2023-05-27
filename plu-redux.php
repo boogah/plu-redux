@@ -15,8 +15,8 @@
  * @link    https://github.com/boogah/plu-redux
  *
  * @wordpress-plugin
- * Plugin Name: Plugin Last Updated Redux
- * Version:           2.1.1
+ * Plugin Name:       Plugin Last Updated Redux
+ * Version:	          2.2.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Jason Cosper
@@ -133,5 +133,76 @@ function plu_redux_last_updated_command() {
 	$table->display();
 }
 if ( class_exists( 'WP_CLI' ) ) {
-    \WP_CLI::add_command('plu list', 'plu_redux_last_updated_command');
+	\WP_CLI::add_command('plu list', 'plu_redux_last_updated_command');
+}
+
+// This filter hook is used to add a custom Site Health check
+add_filter( 'site_status_tests', 'plu_redux_health_check' );
+
+function plu_redux_health_check( $tests ) {
+	$tests['direct']['plugin_health_check'] = array(
+		'label' => __( 'Check for any plugins that have not been updated in 2 years' ),
+		'test'    => 'perform_plugin_health_check',
+	);
+
+	return $tests;
+}
+
+function perform_plugin_health_check() {
+	$plugins = get_plugins();
+	$old_plugins = array();
+
+	foreach ($plugins as $plugin_file => $plugin_info) {
+		list($slug) = explode('/', $plugin_file);
+		$slug_hash = md5($slug);
+		$last_updated = get_transient("plu_redux_{$slug_hash}");
+
+		if (false === $last_updated) {
+			$last_updated = plu_redux_get_last_updated($slug);
+			set_transient("plu_redux_{$slug_hash}", $last_updated, 86400);
+		}
+
+		if ($last_updated) {
+			$two_years_ago = strtotime('-2 years');
+			$last_updated_timestamp = strtotime($last_updated);
+			$is_old = $last_updated_timestamp < $two_years_ago;
+
+			if ($is_old) {
+				$old_plugins[] = $plugin_info['Name'];
+			}
+		}
+	}
+
+	if (empty($old_plugins)) {
+		$result = array(
+			'label'    	  => __( 'All plugins have been updated within the last 2 years' ),
+			'status'      => 'good',
+			'badge'    	  => array(
+			'label'       => __( 'Plugins' ),
+			'color'       => 'blue',
+			),
+			'description' => sprintf( 
+				'<p>' . __( 'All plugins have been updated within the last 2 years.' ) . '</p>'
+			),
+			'actions'     => '',
+			'test'        => 'perform_plugin_health_check',
+		);
+	} else {
+		$result = array(
+			'label'       => __( 'Some of your plugins have not been updated in over 2 years' ),
+			'status'      => 'critical',
+			'badge'       => array(
+			'label'       => __( 'Plugins' ),
+			'color'       => 'red',
+			),
+			'description' => sprintf( 
+				'<p>' . __( 'The following plugins have not been updated in over 2 years: <em>%s.</em> It is highly suggested you look for <a href="http://wordpress.org/plugins/">actively developed alternatives</a>.' ) . '</p>',
+				implode(", ", $old_plugins)
+			),
+			'actions'     => '',
+			'test'        => 'perform_plugin_health_check',
+		);
+	}
+
+	return $result;
 }
