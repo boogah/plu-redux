@@ -16,7 +16,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Plugin Last Updated Redux
- * Version:	          2.2.0
+ * Version:           2.2.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Jason Cosper
@@ -60,7 +60,7 @@ function plu_redux_plugin_meta( $plugin_meta, $plugin_file ) {
 		$last_updated_timestamp = strtotime($last_updated); // get a Unix timestamp for the last updated date
 		$is_old = $last_updated_timestamp < $two_years_ago; // check if the last updated date is older than 2 years
 		$warning = $is_old ? '⚠️ ' : ''; // if the last updated date is older than 2 years, add a warning symbol
-		$plugin_meta['last_updated'] = $warning . 'Last Updated: ' . esc_html( $last_updated ); // add the last updated date to the plugin meta array
+		$plugin_meta['last_updated'] = $warning . 'Last Updated: ' . date_i18n( get_option( 'date_format' ), strtotime($last_updated)); // add the last updated date to the plugin meta array
 	}
 
 	return $plugin_meta; // return the modified plugin meta array
@@ -116,17 +116,17 @@ function plu_redux_last_updated_command() {
 
 			// If the cache does not have the date, retrieve it from the WordPress API and cache it
 			if (false === $last_updated) {
-					$last_updated = plu_redux_get_last_updated($slug);
-					set_transient("plu_redux_{$slug_hash}", $last_updated, 86400); // cache for one day
+				$last_updated = plu_redux_get_last_updated($slug);
+				set_transient("plu_redux_{$slug_hash}", $last_updated, 86400); // cache for one day
 			}
 
 			if ($last_updated) {
-					// Check if last update was more than 2 years ago
-					$two_years_ago = strtotime('-2 years'); // get a Unix timestamp for 2 years ago
-					$last_updated_timestamp = strtotime($last_updated); // get a Unix timestamp for the last updated date
-					$is_old = $last_updated_timestamp < $two_years_ago; // check if the last updated date is older than 2 years
-					$warning = $is_old ? '  ←' : ''; // if the last updated date is older than 2 years, add a warning symbol
-					$table->addRow(array($plugin_info['Name'], $last_updated . $warning));
+				// Check if last update was more than 2 years ago
+				$two_years_ago = strtotime('-2 years'); // get a Unix timestamp for 2 years ago
+				$last_updated_timestamp = strtotime($last_updated); // get a Unix timestamp for the last updated date
+				$is_old = $last_updated_timestamp < $two_years_ago; // check if the last updated date is older than 2 years
+				$warning = $is_old ? '  ←' : ''; // if the last updated date is older than 2 years, add a warning symbol
+				$table->addRow(array($plugin_info['Name'], $last_updated . $warning));
 			}
 	}
 
@@ -175,9 +175,9 @@ function perform_plugin_health_check() {
 
 	if (empty($old_plugins)) {
 		$result = array(
-			'label'    	  => __( 'All plugins have been updated within the last 2 years' ),
+			'label'       => __( 'All plugins have been updated within the last 2 years' ),
 			'status'      => 'good',
-			'badge'    	  => array(
+			'badge'       => array(
 			'label'       => __( 'Plugins' ),
 			'color'       => 'blue',
 			),
