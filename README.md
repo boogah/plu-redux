@@ -1,4 +1,4 @@
-# Plugin Last Updated Redux
+# PLU Redux
 
 Displays a "Last Updated" date for all of your plugins installed by way of the WordPress Plugin Directory.
 
@@ -10,7 +10,19 @@ On plugins that have not been updated in over two years, a warning emoji is disp
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. That's it! The plugin will automatically display the last updated date for installed plugins available in the WordPress Plugin Directory.
 
-Sure, here's an example section that you can add to the `README.md` file to document the new WP-CLI command:
+## Usage
+
+Once activated, the plugin will automatically display the last updated date for each plugin in your site's list of installed plugins.
+
+For the Site Health check, navigate to "Tools → Site Health" in your WordPress dashboard.
+
+## Site Health Check
+
+The custom Site Health check will list any installed plugins that have not been updated in 2 years. 
+
+* If it finds any such plugins, it will return a "critical" status with the names of the old plugins.
+* If it doesn't find any, it will return a "good" status, indicating that all installed plugins have been updated within the last 2 years.
+
 
 ## WP-CLI Command
 
@@ -51,6 +63,11 @@ Decisions, not options!
 Sadly, no. PLU Redux only works with plugins that are available in the WordPress Plugin Directory.
 
 ## Changelog
+
+### 2.2.2
+
+* Making an attempt to meet WP Plugin Directory requirements.
+* Added some documentation around the site health check to the README.
 
 ### 2.2.1
 
