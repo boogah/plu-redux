@@ -9,14 +9,14 @@
  * been updated in over two years, a warning emoji is displayed
  * next to the "Last Updated" datestamp.
  *
- * @package Plugin Last Updated Redux
+ * @package PLU Redux
  * @author  Jason Cosper <boogah@gmail.com>
  * @license https://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  * @link    https://github.com/boogah/plu-redux
  *
  * @wordpress-plugin
- * Plugin Name:       Plugin Last Updated Redux
- * Version:           2.2.1
+ * Plugin Name:       PLU Redux
+ * Version:           2.2.2
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Jason Cosper
