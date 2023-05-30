@@ -52,6 +52,11 @@ Sadly, no. PLU Redux only works with plugins that are available in the WordPress
 
 ## Changelog
 
+### 2.2.1
+
+* Plugin now uses site's preferred date format.
+* Also cleaned up some wonky formatting. 😅
+
 ### 2.2.0
 
 * Added a Site Health check that lists any outdated plugins.
