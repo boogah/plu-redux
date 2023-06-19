@@ -64,6 +64,10 @@ Sadly, no. PLU Redux only works with plugins that are available in the WordPress
 
 ## Changelog
 
+### 2.2.3
+
+* Added `aria-label` to warning emoji to improve accessability. Special thanks to Dale Reardon for letting me know about this!
+
 ### 2.2.2
 
 * Making an attempt to meet WP Plugin Directory requirements.

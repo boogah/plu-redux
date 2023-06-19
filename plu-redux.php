@@ -16,7 +16,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       PLU Redux
- * Version:           2.2.2
+ * Version:           2.2.3
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Jason Cosper
@@ -59,7 +59,7 @@ function plu_redux_plugin_meta( $plugin_meta, $plugin_file ) {
 		$two_years_ago = strtotime('-2 years'); // get a Unix timestamp for 2 years ago
 		$last_updated_timestamp = strtotime($last_updated); // get a Unix timestamp for the last updated date
 		$is_old = $last_updated_timestamp < $two_years_ago; // check if the last updated date is older than 2 years
-		$warning = $is_old ? '⚠️ ' : ''; // if the last updated date is older than 2 years, add a warning symbol
+		$warning = $is_old ? '<span role="img" aria-label="warning">⚠️</span> ' : ''; // if the last updated date is older than 2 years, add a warning symbol
 		$plugin_meta['last_updated'] = $warning . 'Last Updated: ' . date_i18n( get_option( 'date_format' ), strtotime($last_updated)); // add the last updated date to the plugin meta array
 	}
 
